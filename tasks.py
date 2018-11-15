@@ -3,11 +3,6 @@ import requests
 import pandas as pd
 from xml.etree import ElementTree as ET
 import xmltodict
-#from tapi import celery
-
-"""
-@celery.task
-"""
 
 headers = {"Content-type": "text/xml;charset=UTF-8", "Accept": "text/xml"}
 
@@ -32,10 +27,9 @@ end_xml = """</DATA>
 		</ENVELOPE>"""
 
 def ping_tally():
-	url = config.url
 	try:
 		#print('url is: ', .url)
-		response = requests.get(url, headers=headers)
+		response = requests.get(config.url, headers=headers)
 		if response.status_code == 200:
 			tree = ET.fromstring(response.content)
 			return('Tally Response: ' + tree.text)
@@ -45,7 +39,6 @@ def ping_tally():
 		return(str(e))
 
 def clean(filename,num=None):
-	#return(filename)
 	try:
 		filename = filename
 		df = pd.read_csv(filename, nrows=num, header=0, index_col=False )
@@ -121,13 +114,10 @@ def create_voucher_xml(row):
 					</VOUCHER>
 					</TALLYMESSAGE>""" 
 
-	#print(xml_op)
 	return(xml_op)
 
 def send_tally_request(tally_req):
-	
-	print(tally_req)
-	#print(xmltodict.parse(tally_req))
+
 	try:
 		response = requests.post(config.url,data=str(tally_req), headers=headers)
 	except requests.exceptions.RequestException as e: #Catch all exceptions

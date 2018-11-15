@@ -17,9 +17,11 @@ auth = HTTPBasicAuth()
 # view to ping tally server and check if running or not
 @tapi.route('/tally/api/v1.0/pingserver')
 def ping_tally():
-	p = tasks.ping_tally()
-	return(p)
-
+	try:
+		p = tasks.ping_tally()
+		return(p)
+	except Exception as e:
+		return(str(e))
 # view to import vouchers from csv using dataframe and send to taly
 @tapi.route('/tally/api/v1.0/voucherimport/<path:filename>')
 def batch_voucher_import(filename):
@@ -32,12 +34,12 @@ def batch_voucher_import(filename):
 # view to import stock items from dataframe and send to tally
 @tapi.route('/tally/api/v1.0/stockitemsimport/<path:filename>')
 def batch_import_stockitems(filename):
-	#try:
-	request_xml = tasks.create_stockitem_request(filename,chunksize=10)
-	result = tasks.send_tally_request(tally_req=request_xml)
-	return(result)
-	#except Exception as e:
-	return(str(e))
+	try:
+		request_xml = tasks.create_stockitem_request(filename,chunksize=10)
+		result = tasks.send_tally_request(tally_req=request_xml)
+		return(result)
+	except Exception as e:
+		return(str(e))
 
 if __name__ == '__main__':
-    tapi.run(debug=True)
+    tapi.run() # set debug=True for development
