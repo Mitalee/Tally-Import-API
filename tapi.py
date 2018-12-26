@@ -22,6 +22,7 @@ def ping_tally():
 		return(p)
 	except Exception as e:
 		return(str(e))
+
 # view to import vouchers from csv using dataframe and send to taly
 @tapi.route('/tally/api/v1.0/voucherimport/<path:filename>')
 def batch_voucher_import(filename):
@@ -31,6 +32,7 @@ def batch_voucher_import(filename):
 		return(result)
 	except Exception as e:
 		return(str(e))
+
 # view to import stock items from dataframe and send to tally
 @tapi.route('/tally/api/v1.0/stockitemsimport/<path:filename>')
 def batch_import_stockitems(filename):
@@ -42,4 +44,4 @@ def batch_import_stockitems(filename):
 		return(str(e))
 
 if __name__ == '__main__':
-    tapi.run() # set debug=True for development
+    tapi.run(host=config.host, port=config.port) # set debug=True for development

@@ -28,7 +28,6 @@ end_xml = """</DATA>
 
 def ping_tally():
 	try:
-		#print('url is: ', .url)
 		response = requests.get(config.url, headers=headers)
 		if response.status_code == 200:
 			tree = ET.fromstring(response.content)
@@ -42,7 +41,6 @@ def clean(filename,num=None):
 	try:
 		filename = filename
 		df = pd.read_csv(filename, nrows=num, header=0, index_col=False )
-		# Global is idiotic do not do this,like really don't.
 		df.columns = [c.lower().replace(' ', '_').replace('/','_') for c in df.columns]
 		#convert invoice date from string to datetime format
 		df['invoice_date'] = pd.to_datetime(df['invoice_date'], infer_datetime_format=True)
@@ -118,8 +116,10 @@ def create_voucher_xml(row):
 
 def send_tally_request(tally_req):
 
+	print(tally_req)
 	try:
-		response = requests.post(config.url,data=str(tally_req), headers=headers)
+		header = {'Content-type':'application/xml'}
+		response = requests.post(config.url,data=tally_req, headers=headers)
 	except requests.exceptions.RequestException as e: #Catch all exceptions
 		return(str(e))
 
@@ -177,8 +177,6 @@ def create_voucher_request(filename):
 	#df = clean(5,10)
 	df = clean(filename,num=None)
 	msg_xml = ''.join(df.apply(create_voucher_xml, axis=1)) #apply function to each row
-	#CHANGE THIS From here
-	#https://stackoverflow.com/questions/3900054/python-strip-multiple-characters
 	request_xml = (beg_xml+msg_xml+end_xml).replace('\n','').replace('\t','')
 	return(request_xml)
 
@@ -196,14 +194,15 @@ def create_stockitem_xml(stock_item):
 
 def create_stockitem_request(filename,chunksize=50):
 	df = clean(filename, num=None)
-	request_xml = []
+	#request_xml = [] 
+	""" 
+	Sine tally accepts xml in str format without problems listing and jsonisng 
+	for requests is not really required 
+	"""
 	stock_list = df['sku'].unique()
 
 	for i in range(0,len(stock_list),chunksize):
 		msg_xml = '\n'.join(create_stockitem_xml(stock_item=s) for s in stock_list) #apply function to each row
-		#CHANGE THIS From here
-		#https://stackoverflow.com/questions/3900054/python-strip-multiple-characters
-		request_xml.append((beg_xml+msg_xml+end_xml).replace('\n','').replace('\t',''))
+	
+	request_xml=(beg_xml+msg_xml+end_xml).replace('\n','').replace('\t','')
 	return(request_xml)
-
-
