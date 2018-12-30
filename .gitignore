@@ -1,2 +1,10 @@
 
 config\.pyc
+
+__pycache__/
+
+bin/
+
+lib/
+
+include/
