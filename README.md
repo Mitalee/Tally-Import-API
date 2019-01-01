@@ -51,7 +51,7 @@ Example Docker container deployment would look like.
  `-p` standing for port mapping with `5000` being port forwarded to `50` . 
  `-e` for passing the `TALLY_URL` enviroment variable 
 
-### Non-Contanarized 
+### Non-Contanarized
 #### Configuration 
 Download 
 
