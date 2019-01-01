@@ -7,18 +7,20 @@ This API helps Accountants,E-Commerce Sellers to convert the CSV files with the 
 
 Table of Contents
 --------------------- 
- - Feature Support
- - Installation
-	 - Docker
-		 - Configuration
-		- Deployment
-	 - Non-Contanarized
-		 - Configuration
-		 - Deployment
- - Sample Usage 
- - Status 
+ - [Feature Support](https://github.com/Pac23/Tally-Import-API/blob/master/README.md#feature-support)
+ - [Installation](https://github.com/Pac23/Tally-Import-API/blob/master/README.md#installation)
+	 - [Docker](https://github.com/Pac23/Tally-Import-API/blob/master/README.md#docker)
+		 - [Configuration](https://github.com/Pac23/Tally-Import-API/blob/master/README.md#configuration)
+		- [Deployment](https://github.com/Pac23/Tally-Import-API/blob/master/README.md#deployment)
+	 - [Non-Contanarized](https://github.com/Pac23/Tally-Import-API/blob/master/README.md#non-contanarized)
+		 - [Configuration](https://github.com/Pac23/Tally-Import-API/blob/master/README.md#configuration-1)
+		 - [Deployment](https://github.com/Pac23/Tally-Import-API/blob/master/README.md#deployment)
+ - [Sample Usage](https://github.com/Pac23/Tally-Import-API/blob/master/README.md#sample-usage)
+ 	- [Command-Line](https://github.com/Pac23/Tally-Import-API/blob/master/README.md#using-the-command-line)
+	- [Browser](https://github.com/Pac23/Tally-Import-API/blob/master/README.md#using-the-browser)
+ - [Status](https://github.com/Pac23/Tally-Import-API/blob/master/README.md#status) 
  
- Feature Support
+Feature Support
 ---------------------
 As of Version 0.1 
  - Check Tally Server Status
@@ -74,7 +76,8 @@ Make sure Your python version is `3.6 or above`
 
      python tapi.py
 
-### Sample Usage 
+Sample Usage
+----------------
 #### Using the Command Line 
 
 To Check the Status of the Tally Server
@@ -103,7 +106,7 @@ To import Data from CSV into voucher StockItems
 
  `http://127.0.0.1:5000/tally/api/stockitemsimport/test_rows.csv`
     
-### Status
+Status
 ----------------
 This project is at a very early stage right now.Please report any issues. 
 
