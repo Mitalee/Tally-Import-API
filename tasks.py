@@ -2,7 +2,6 @@ import configparser
 import requests
 import pandas as pd
 from xml.etree import ElementTree as ET
-import xmltodict
 import os
 
 currdir = os.path.dirname(os.path.abspath('Tally-Import-API'))
