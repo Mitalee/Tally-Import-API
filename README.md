@@ -1,5 +1,8 @@
 Tally-Gstr-API
 ===========
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+![Python:](https://img.shields.io/badge/python-3.6%20%7C%203.7-green.svg)
+![Docker:](https://img.shields.io/docker/build/jrottenberg/ffmpeg.svg)
 
 This is a API inteface for Tally Tax Software for HTTP based Import & transcode of E-Commerce Invoices into Tally Software for GST-R Tax Filling. 
 
