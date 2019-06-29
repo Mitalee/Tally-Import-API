@@ -5,7 +5,7 @@ import tasks
  
 
 from xml.etree import ElementTree as ET
-from flask import Flask, jsonify, abort, make_response
+from flask import Flask, jsonify, abort, make_response, jsonify
 from flask_restful import Api, Resource, reqparse, fields, marshal
 from flask_httpauth import HTTPBasicAuth
  
@@ -15,7 +15,7 @@ api = Api(tapi)
 auth = HTTPBasicAuth()
 
 # view to ping tally server and check if running or not
-@tapi.route('/tally/api/v1.0/pingserver')
+@tapi.route('/tallyapi/pingserver')
 def ping_tally():
 	try:
 		p = tasks.ping_tally()
@@ -23,7 +23,7 @@ def ping_tally():
 	except Exception as e:
 		return(str(e))
 # view to import vouchers from csv using dataframe and send to taly
-@tapi.route('/tally/api/v1.0/voucherimport/<path:filename>')
+@tapi.route('/tallyapi/voucherimport/<path:filename>')
 def batch_voucher_import(filename):
 	try:
 		request_xml = tasks.create_voucher_request(filename)
@@ -32,7 +32,7 @@ def batch_voucher_import(filename):
 	except Exception as e:
 		return(str(e))
 # view to import stock items from dataframe and send to tally
-@tapi.route('/tally/api/v1.0/stockitemsimport/<path:filename>')
+@tapi.route('/tallyapi/stockitemsimport/<path:filename>')
 def batch_import_stockitems(filename):
 	try:
 		request_xml = tasks.create_stockitem_request(filename,chunksize=10)
