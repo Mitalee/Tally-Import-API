@@ -5,7 +5,7 @@ import tasks
  
 
 from xml.etree import ElementTree as ET
-from flask import Flask, jsonify, abort, make_response
+from flask import Flask, jsonify, abort, make_response, jsonify
 from flask_restful import Api, Resource, reqparse, fields, marshal
 from flask_httpauth import HTTPBasicAuth
  
@@ -28,7 +28,7 @@ def batch_voucher_import(filename):
 	try:
 		request_xml = tasks.create_voucher_request(filename)
 		result = tasks.send_tally_request(tally_req=request_xml)
-		return(result)
+		return(jsonify(result))
 	except Exception as e:
 		return(str(e))
 # view to import stock items from dataframe and send to tally

@@ -1,7 +1,7 @@
 import os
 
-url = '<insert url here>' # Insert your tally server url here
+url = 'http://localhost:9000' # Insert your tally server url here
 
-# DEBUG = True for development
+DEBUG = True #for development
 
 
