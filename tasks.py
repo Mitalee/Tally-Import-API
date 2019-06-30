@@ -31,10 +31,11 @@ end_xml = """</DATA>
 
 def ping_tally():
 	try:
-		#print('url is: ', .url)
+		print('url is: ', config.url)
 		response = requests.get(config.url, headers=headers)
 		if response.status_code == 200:
 			tree = ET.fromstring(response.content)
+			print(tree.text)
 			return('Tally Response: ' + tree.text)
 		else: 
 			return('Error connecting to Tally, response code is:' + str(response.status_code))

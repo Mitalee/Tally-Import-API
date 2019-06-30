@@ -14,8 +14,12 @@ tapi = Flask(__name__)
 api = Api(tapi)
 auth = HTTPBasicAuth()
 
+@tapi.route('/')
+def sayhi():
+	return("hi")
+
 # view to ping tally server and check if running or not
-@tapi.route('/tallyapi/pingserver')
+@tapi.route('/tally/api/v1.0/pingserver')
 def ping_tally():
 	try:
 		p = tasks.ping_tally()
@@ -23,16 +27,16 @@ def ping_tally():
 	except Exception as e:
 		return(str(e))
 # view to import vouchers from csv using dataframe and send to taly
-@tapi.route('/tallyapi/voucherimport/<path:filename>')
+@tapi.route('/tally/api/v1.0/voucherimport/<path:filename>')
 def batch_voucher_import(filename):
 	try:
 		request_xml = tasks.create_voucher_request(filename)
 		result = tasks.send_tally_request(tally_req=request_xml)
-		return(result)
+		return(jsonify(result))
 	except Exception as e:
 		return(str(e))
 # view to import stock items from dataframe and send to tally
-@tapi.route('/tallyapi/stockitemsimport/<path:filename>')
+@tapi.route('/tally/api/v1.0/stockitemsimport/<path:filename>')
 def batch_import_stockitems(filename):
 	try:
 		request_xml = tasks.create_stockitem_request(filename,chunksize=10)
@@ -42,4 +46,4 @@ def batch_import_stockitems(filename):
 		return(str(e))
 
 if __name__ == '__main__':
-    tapi.run() # set debug=True for development
+    tapi.run(debug=config.DEBUG) # set debug=True for development
